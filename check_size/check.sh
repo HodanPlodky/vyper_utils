@@ -8,13 +8,13 @@ cd "${VYPER_DIR}"
 source "${CHECK_PYENV}"
 for commit in "$@"
 do
-    printf "checking out $commit ..."
+    printf "checking out $commit ..." 1>&2
     git checkout $commit 2> /dev/null > /dev/null
 
 
     if [ $? -ne 0 ]; 
     then
-        printf " ${RED}commit does not exist"${NC}"\n";
+        printf " ${RED}commit does not exist"${NC}"\n"; 1>&2
         continue
     fi
 
@@ -26,7 +26,7 @@ do
 
     if [ $? -ne 0 ]; 
     then
-        printf " ${RED}error creating file${NC}\n";
+        printf " ${RED}error creating file${NC}\n"; 1>&2
         continue
     fi
 
@@ -38,5 +38,5 @@ do
         PYTHONPATH=. python vyper/cli/vyper_compile.py  --enable-decimals --experimental-codegen ${file} --optimize none 2> /dev/null | wc -c | tr -d "\n" >> "/tmp/${commit}.tmp.csv"
     done
 
-    printf " ${GREEN}done${NC}\n"
+    printf " ${GREEN}done${NC}\n" 1>&2
 done

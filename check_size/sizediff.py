@@ -72,4 +72,4 @@ def run(files: list[str]):
         new_row = handle_file_result(filename, commits, baseline, csvs)
         result = pd.concat([result, new_row], ignore_index=True)
 
-    result.to_csv(sys.stderr)
+    result.to_csv(sys.stdout)
